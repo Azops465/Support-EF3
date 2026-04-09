@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Vitrine de certifications professionnelles de Pascal Griffon">
+    <title>Ma Vitrine de Certifications</title>
+    <style>
+        /* Importation d'une police moderne */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #0f172a;
+            --text: #f8fafc;
+            --card-bg: #1e293b;
+            --border: #334155;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Personnalisation de la barre de défilement */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        /* En-tête */
+        header {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, #1e1b4b, var(--primary));
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 { 
+            font-size: clamp(2rem, 5vw, 2.8rem); 
+            margin-bottom: 0.5rem; 
+            letter-spacing: -0.5px;
+        }
+        
+        header p { 
+            color: #cbd5e1; 
+            font-weight: 300; 
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Boutons de filtre */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 400;
+            font-family: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        /* MODIFICATION ICI : Utilisation de Flexbox au lieu de Grid pour centrer facilement */
+        .showcase {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        /* Design des cartes (Certifications) */
+        .cert-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            /* MODIFICATION ICI : On fixe une largeur de base pour que les cartes aient toutes la même taille */
+            width: 100%;
+            max-width: 340px; 
+        }
+
+        .cert-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-color: var(--primary);
+        }
+
+        /* Conteneur de l'image / emoji */
+        .cert-img {
+            width: 100%;
+            height: 180px;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            padding: 15px; 
+        }
+
+        .cert-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            transition: transform 0.5s ease;
+        }
+
+        .cert-card:hover .cert-img img {
+            transform: scale(1.05);
+        }
+
+        .cert-content { 
+            padding: 1.5rem; 
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cert-tag {
+            align-self: flex-start;
+            padding: 0.3rem 0.8rem;
+            background: rgba(79, 70, 229, 0.15);
+            color: #a5b4fc;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .cert-title { 
+            font-size: 1.25rem; 
+            margin-bottom: 0.5rem; 
+            color: white;
+            line-height: 1.3;
+        }
+
+        .cert-issuer { 
+            color: #94a3b8; 
+            font-size: 0.9rem; 
+            margin-bottom: 1.5rem; 
+            flex-grow: 1;
+        }
+        
+        .cert-link {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text);
+            background: var(--primary);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .cert-link:hover { 
+            background: var(--primary-hover); 
+        }
+
+        .cert-link:active {
+            transform: scale(0.98);
+        }
+
+        /* Animation JS */
+        .fade-in {
+            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: scale(0.95) translateY(10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mes Certifications</h1>
+        <p>Découvrez mon parcours et mes compétences validées</p>
+    </header>
+
+    <main class="container">
+        <nav class="filters" aria-label="Filtres de certifications">
+            <button class="filter-btn active" onclick="filterCerts('all', this)" aria-pressed="true">Tout afficher</button>
+            <button class="filter-btn" onclick="filterCerts('SecNum', this)" aria-pressed="false">SecNumAcadémie</button>
+            <button class="filter-btn" onclick="filterCerts('Microsoft', this)" aria-pressed="false">Microsoft Learn</button>
+        </nav>
+
+        <section class="showcase" id="showcase">
+            
+            <article class="cert-card SecNum">
+                <div class="cert-img">
+                    <img src="secnum.jfif" alt="Illustration SecNum">
+                </div>
+                <div class="cert-content">
+                    <span class="cert-tag">SecNumAcadémie</span>
+                    <h3 class="cert-title">Bases et bonnes pratique de la SSI</h3>
+                    <p class="cert-issuer">Délivré par : L’équipe SecNumacadémie <br>Obtention : 7 Novembre 2024</p>
+                    <a href="https://drive.google.com/file/d/1s1-aRKXpilbSf6b2UB_cffHtN1Xbn_yg/view?usp=drive_link" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat</a>
+                </div>
+            </article>
+
+            <article class="cert-card Microsoft">
+                <div class="cert-img">
+                    <img src="Powershell1.png" alt="Illustration PowerShell">
+                </div>
+                <div class="cert-content">
+                    <span class="cert-tag">Microsoft Learn</span>
+                    <h3 class="cert-title">Bien démarrer avec Windows PowerShell</h3>
+                    <p class="cert-issuer">Délivré par : Microsoft Learn <br>Obtention : 05 Décembre 2025</p>
+                    <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat</a>    
+                </div>
+            </article>
+
+            <article class="cert-card Microsoft">
+                <div class="cert-img">
+                    <img src="powershell2.png" alt="Illustration PowerShell">
+                </div>
+                <div class="cert-content">
+                    <span class="cert-tag">Microsoft Learn</span>
+                    <h3 class="cert-title">Automatiser des tâches d'administration à l’aide de PowerShell</h3>
+                    <p class="cert-issuer">Délivré par : Microsoft Learn <br>Obtention : 11 décembre 2025</p>
+                    <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat</a>    
+                </div>
+            </article>
+
+            <article class="cert-card Microsoft">
+                <div class="cert-img">
+                    <img src="application-development.png" alt="Illustration AD">
+                </div>
+                <div class="cert-content">
+                    <span class="cert-tag">Microsoft Learn</span>
+                    <h3 class="cert-title">Exploration des concepts informatiques de base</h3>
+                    <p class="cert-issuer">Délivré par : Microsoft Learn <br>Obtention : 7 janvier 2026</p>
+                    <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat</a>    
+                </div>
+            </article>
+
+            <article class="cert-card Microsoft">
+                <div class="cert-img">
+                    <img src="authentication-configuration-authorization.png" alt="Illustration AD">
+                </div>
+                <div class="cert-content">
+                    <span class="cert-tag">Microsoft Learn</span>
+                    <h3 class="cert-title">MD-100 Configurer l’autorisation et l’authentification</h3>
+                    <p class="cert-issuer">Délivré par : Microsoft Learn <br>Obtention : 7 janvier 2026</p>
+                    <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat</a>    
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <script>
+        function filterCerts(category, btnElement) {
+            // Mise à jour de l'état actif des boutons et de l'accessibilité
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.setAttribute('aria-pressed', 'false');
+            });
+            btnElement.classList.add('active');
+            btnElement.setAttribute('aria-pressed', 'true');
+
+            // Filtrage des cartes avec animation
+            const cards = document.querySelectorAll('.cert-card');
+            cards.forEach(card => {
+                card.classList.remove('fade-in');
+                
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                    // Délai pour forcer le navigateur à rejouer l'animation
+                    setTimeout(() => {
+                        card.classList.add('fade-in');
+                    }, 10);
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
