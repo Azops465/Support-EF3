@@ -780,7 +780,7 @@
                 card.style.animationDelay = `${i * 60}ms`;
                 card.innerHTML = `
                     <span class="module-number">Module ${String(i + 1).padStart(2, '0')}</span>
-                    <span class="module-icon">${m.icon}</span>
+                    <span class="module-icon">${m.img ? `<img src="${m.img}" alt="icône module" style="width: 32px; height: 32px; object-fit: contain;">` : m.icon}</span>
                     <span class="module-name">${m.name}</span>
                     <span class="module-duration">⏱ ${m.duration}</span>
                     <a href="${m.link}" class="module-link" target="_blank" rel="noopener noreferrer">Voir le module ↗</a>
