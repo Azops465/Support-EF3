@@ -488,6 +488,8 @@
             gap: 0.8rem;
             transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
             animation: moduleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+            align-items: center; /* NOUVEAU: Centrer horizontalement */
+            text-align: center;   /* NOUVEAU: Centrer le texte */
         }
 
         .module-card:hover {
@@ -502,8 +504,17 @@
         }
 
         .module-icon {
-            font-size: 1.8rem;
-            line-height: 1;
+            font-size: 2.5rem; /* NOUVEAU: Plus gros */
+            margin: 0.5rem 0; /* Add some space */
+            display: flex;     /* NOUVEAU: Pour le centrage d'image */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .module-icon img {
+            width: 70px;  /* NOUVEAU: Plus gros */
+            height: 70px; /* NOUVEAU: Plus gros */
+            object-fit: contain;
         }
 
         .module-number {
@@ -611,7 +622,6 @@
 
         <section class="showcase" id="showcase">
 
-            <!-- ── SecNum ── -->
             <article class="cert-card SecNum">
                 <div class="cert-img">
                     <img src="secnum.jfif" alt="SecNumAcadémie">
@@ -626,7 +636,6 @@
                 </div>
             </article>
 
-            <!-- ── PowerShell Bases ── -->
             <article class="cert-card Microsoft">
                 <div class="cert-img">
                     <img src="Badges/powershell-base.png" alt="PowerShell Base">
@@ -642,7 +651,6 @@
                 </div>
             </article>
 
-            <!-- ── PowerShell Auto ── -->
             <article class="cert-card Microsoft">
                 <div class="cert-img">
                     <img src="Badges/powershell-auto.png" alt="PowerShell Automatisation">
@@ -658,7 +666,6 @@
                 </div>
             </article>
 
-            <!-- ── Concepts Info ── -->
             <article class="cert-card Microsoft">
                 <div class="cert-img">
                     <img src="Badges/concepts-info.png" alt="Concepts Informatiques">
@@ -674,7 +681,6 @@
                 </div>
             </article>
 
-            <!-- ── MD-100 Auth ── -->
             <article class="cert-card Microsoft">
                 <div class="cert-img">
                     <img src="Badges/authentication.png" alt="Authentification">
@@ -697,7 +703,6 @@
         <p>Pascal Griffon · Vitrine de certifications professionnelles</p>
     </footer>
 
-    <!-- ── Modal ── -->
     <div class="modal-overlay" id="modalOverlay" onclick="closeOnBackdrop(event)">
         <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
             <div class="modal-header">
@@ -780,7 +785,7 @@
                 card.style.animationDelay = `${i * 60}ms`;
                 card.innerHTML = `
                     <span class="module-number">Module ${String(i + 1).padStart(2, '0')}</span>
-                    <span class="module-icon">${m.img ? `<img src="${m.img}" alt="icône module" style="width: 32px; height: 32px; object-fit: contain;">` : m.icon}</span>
+                    <span class="module-icon">${m.img ? `<img src="${m.img}" alt="icône module">` : m.icon}</span>
                     <span class="module-name">${m.name}</span>
                     <span class="module-duration">⏱ ${m.duration}</span>
                     <a href="${m.link}" class="module-link" target="_blank" rel="noopener noreferrer">Voir le module ↗</a>
