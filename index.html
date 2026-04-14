@@ -4,234 +4,602 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Vitrine de certifications professionnelles de Pascal Griffon">
-    <title>Ma Vitrine de Certifications</title>
+    <title>Certifications — Pascal Griffon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Importation d'une police moderne */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg: #0f172a;
-            --text: #f8fafc;
-            --card-bg: #1e293b;
-            --border: #334155;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-glow: rgba(99, 102, 241, 0.25);
+            --accent: #22d3ee;
+            --accent-soft: rgba(34, 211, 238, 0.1);
+            --bg: #080c14;
+            --surface: #0f1623;
+            --card-bg: #141d2e;
+            --card-hover: #1a2540;
+            --border: #1e2d45;
+            --border-bright: #2a3f60;
+            --text: #e8edf5;
+            --text-muted: #64748b;
+            --text-dim: #94a3b8;
+            --success: #10b981;
+            --tag-bg: rgba(99, 102, 241, 0.12);
+            --tag-color: #a5b4fc;
         }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        /* Personnalisation de la barre de défilement */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 5px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary);
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+        /* ── Background grid ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
         }
 
-        /* En-tête */
+        /* ── Header ── */
         header {
+            position: relative;
             text-align: center;
-            padding: 4rem 1rem;
-            background: linear-gradient(135deg, #1e1b4b, var(--primary));
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 5rem 1rem 4rem;
+            overflow: hidden;
+            z-index: 1;
         }
 
-        header h1 { 
-            font-size: clamp(2rem, 5vw, 2.8rem); 
-            margin-bottom: 0.5rem; 
-            letter-spacing: -0.5px;
-        }
-        
-        header p { 
-            color: #cbd5e1; 
-            font-weight: 300; 
-            font-size: 1.1rem;
+        header::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(ellipse, rgba(99,102,241,0.2) 0%, transparent 70%);
+            pointer-events: none;
         }
 
+        .header-eyebrow {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+            opacity: 0.9;
+        }
+
+        header h1 {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 600;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #e8edf5 30%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            color: var(--text-dim);
+            font-weight: 300;
+            font-size: 1.05rem;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        /* ── Stats bar ── */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.6rem;
+            color: var(--accent);
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ── Container ── */
         .container {
+            position: relative;
+            z-index: 1;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 3rem 2rem 5rem;
         }
 
-        /* Boutons de filtre */
+        /* ── Filter Tabs ── */
         .filters {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
+            gap: 0.5rem;
+            margin-bottom: 3.5rem;
             flex-wrap: wrap;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 0.4rem;
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .filter-btn {
-            background: var(--card-bg);
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 0.6rem 1.5rem;
-            border-radius: 30px;
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 0.55rem 1.4rem;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 400;
-            font-family: inherit;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            transition: all 0.25s ease;
+            letter-spacing: 0.2px;
         }
 
-        .filter-btn:hover, .filter-btn.active {
+        .filter-btn:hover {
+            color: var(--text);
+            background: var(--border);
+        }
+
+        .filter-btn.active {
             background: var(--primary);
-            border-color: var(--primary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+            color: white;
+            box-shadow: 0 2px 12px var(--primary-glow);
         }
 
-        /* MODIFICATION ICI : Utilisation de Flexbox au lieu de Grid pour centrer facilement */
+        /* ── Showcase Grid ── */
         .showcase {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
-        /* Design des cartes (Certifications) */
+        /* ── Cert Card ── */
         .cert-card {
             background: var(--card-bg);
-            border-radius: 16px;
+            border-radius: 18px;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
             border: 1px solid var(--border);
             display: flex;
             flex-direction: column;
             position: relative;
-            /* MODIFICATION ICI : On fixe une largeur de base pour que les cartes aient toutes la même taille */
             width: 100%;
-            max-width: 340px; 
+            max-width: 320px;
         }
 
         .cert-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 1px var(--primary);
+            background: var(--card-hover);
             border-color: var(--primary);
         }
 
-        /* Conteneur de l'image / emoji */
+        /* Corner accent */
+        .cert-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 60px; height: 60px;
+            background: linear-gradient(225deg, rgba(99,102,241,0.15), transparent 60%);
+            border-radius: 0 18px 0 0;
+            pointer-events: none;
+        }
+
         .cert-img {
             width: 100%;
-            height: 180px;
-            background: #0f172a;
+            height: 165px;
+            background: var(--surface);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
+            font-size: 3.5rem;
             border-bottom: 1px solid var(--border);
             overflow: hidden;
-            padding: 15px; 
+            padding: 20px;
+            position: relative;
+        }
+
+        .cert-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 40px;
+            background: linear-gradient(to top, var(--card-bg), transparent);
         }
 
         .cert-img img {
             width: 100%;
             height: 100%;
-            object-fit: contain; 
+            object-fit: contain;
             transition: transform 0.5s ease;
+            filter: drop-shadow(0 4px 12px rgba(99,102,241,0.2));
         }
 
         .cert-card:hover .cert-img img {
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
 
-        .cert-content { 
-            padding: 1.5rem; 
+        .cert-content {
+            padding: 1.4rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            gap: 0;
         }
 
         .cert-tag {
             align-self: flex-start;
-            padding: 0.3rem 0.8rem;
-            background: rgba(79, 70, 229, 0.15);
-            color: #a5b4fc;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--tag-bg);
+            color: var(--tag-color);
+            border-radius: 6px;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 1rem;
+            letter-spacing: 0.8px;
+            margin-bottom: 0.85rem;
+            border: 1px solid rgba(99,102,241,0.2);
         }
 
-        .cert-title { 
-            font-size: 1.25rem; 
-            margin-bottom: 0.5rem; 
+        .cert-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: white;
+            line-height: 1.35;
+        }
+
+        .cert-issuer {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            margin-bottom: 1.3rem;
+            flex-grow: 1;
+            line-height: 1.7;
+        }
+
+        .cert-issuer strong {
+            color: var(--text-dim);
+        }
+
+        /* ── Button group ── */
+        .cert-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-top: auto;
+        }
+
+        .cert-link {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background: var(--primary);
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.2px;
+        }
+
+        .cert-link:hover {
+            background: var(--primary-hover);
+            box-shadow: 0 4px 16px var(--primary-glow);
+        }
+
+        .cert-link:active { transform: scale(0.98); }
+
+        /* Modules button */
+        .modules-btn {
+            display: block;
+            text-align: center;
+            color: var(--accent);
+            background: var(--accent-soft);
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: background 0.25s ease, transform 0.15s ease;
+            border: 1px solid rgba(34,211,238,0.2);
+            cursor: pointer;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.2px;
+        }
+
+        .modules-btn:hover {
+            background: rgba(34,211,238,0.18);
+        }
+
+        .modules-btn:active { transform: scale(0.98); }
+
+        /* ── Modal Overlay ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(8, 12, 20, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border-bright);
+            border-radius: 24px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: scale(0.92) translateY(20px);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+        }
+
+        .modal-overlay.open .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: var(--surface);
+            z-index: 2;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            border-radius: 24px 24px 0 0;
+        }
+
+        .modal-header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .modal-eyebrow {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--accent);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+        }
+
+        .modal-title {
+            font-size: 1.35rem;
+            font-weight: 600;
             color: white;
             line-height: 1.3;
         }
 
-        .cert-issuer { 
-            color: #94a3b8; 
-            font-size: 0.9rem; 
-            margin-bottom: 1.5rem; 
+        .modal-close {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #f87171;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-intro {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        /* ── Module Cards ── */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .module-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            animation: moduleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        .module-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        @keyframes moduleIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .module-icon {
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        .module-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .module-name {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.4;
             flex-grow: 1;
         }
-        
-        .cert-link {
-            display: inline-block;
+
+        .module-duration {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .module-link {
+            display: block;
             text-align: center;
             text-decoration: none;
-            color: var(--text);
-            background: var(--primary);
-            padding: 0.8rem 1.2rem;
+            color: var(--primary);
+            background: var(--tag-bg);
+            padding: 0.55rem 0.8rem;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 0.82rem;
             font-weight: 600;
-            transition: background 0.3s ease, transform 0.2s ease;
+            transition: background 0.2s ease, color 0.2s ease;
+            border: 1px solid rgba(99,102,241,0.2);
         }
 
-        .cert-link:hover { 
-            background: var(--primary-hover); 
+        .module-link:hover {
+            background: var(--primary);
+            color: white;
         }
 
-        .cert-link:active {
-            transform: scale(0.98);
-        }
-
-        /* Animation JS */
+        /* ── Animations ── */
         .fade-in {
-            animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: scale(0.95) translateY(10px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: scale(1) translateY(0); 
-            }
+            from { opacity: 0; transform: scale(0.95) translateY(12px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* ── Footer ── */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            .stats-bar { gap: 2rem; }
+            .modal-body { padding: 1.2rem; }
+            .modal-title { font-size: 1.1rem; }
+            .modules-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <header>
+        <p class="header-eyebrow">// Parcours certifié</p>
         <h1>Mes Certifications</h1>
-        <p>Découvrez mon parcours et mes compétences validées</p>
+        <p>Compétences validées en cybersécurité, administration système et infrastructure Microsoft.</p>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <span class="stat-number" id="stat-total">5</span>
+                <span class="stat-label">Certifications</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">2</span>
+                <span class="stat-label">Organismes</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">15</span>
+                <span class="stat-label">Modules</span>
+            </div>
+        </div>
     </header>
 
     <main class="container">
@@ -242,98 +610,224 @@
         </nav>
 
         <section class="showcase" id="showcase">
-            
+
+            <!-- ── SecNum ── -->
             <article class="cert-card SecNum">
                 <div class="cert-img">
-                    <img src="secnum.jfif" alt="Illustration SecNum">
+                    <img src="secnum.jfif" alt="SecNumAcadémie">
                 </div>
                 <div class="cert-content">
                     <span class="cert-tag">SecNumAcadémie</span>
-                    <h3 class="cert-title">Bases et bonnes pratique de la SSI</h3>
-                    <p class="cert-issuer">Délivré par : L’équipe SecNumacadémie <br>Obtention : 7 Novembre 2024</p>
-                    <a href="https://drive.google.com/file/d/1s1-aRKXpilbSf6b2UB_cffHtN1Xbn_yg/view?usp=drive_link" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat</a>
+                    <h3 class="cert-title">Bases et bonnes pratiques de la SSI</h3>
+                    <p class="cert-issuer"><strong>Délivré par :</strong> L'équipe SecNumacadémie<br><strong>Obtenu le :</strong> 7 Novembre 2024</p>
+                    <div class="cert-actions">
+                        <a href="https://drive.google.com/file/d/1s1-aRKXpilbSf6b2UB_cffHtN1Xbn_yg/view?usp=drive_link" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
+                    </div>
                 </div>
             </article>
 
+            <!-- ── PowerShell Bases ── -->
             <article class="cert-card Microsoft">
                 <div class="cert-img">
-                    <img src="Badges/powershell-base.png" alt="Illustration PowerShell">
+                    <img src="Badges/powershell-base.png" alt="PowerShell Base">
                 </div>
                 <div class="cert-content">
                     <span class="cert-tag">Microsoft Learn</span>
                     <h3 class="cert-title">Bien démarrer avec Windows PowerShell</h3>
-                    <p class="cert-issuer">Délivré par : Microsoft Learn <br>Obtention : 05 Décembre 2025</p>
-                    <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat</a>    
+                    <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 05 Décembre 2025</p>
+                    <div class="cert-actions">
+                        <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
+                        <button class="modules-btn" onclick="openModules('ps-base')">⊞ Voir les modules</button>
+                    </div>
                 </div>
             </article>
 
+            <!-- ── PowerShell Auto ── -->
             <article class="cert-card Microsoft">
                 <div class="cert-img">
-                    <img src="Badges/powershell-auto.png" alt="Illustration PowerShell">
+                    <img src="Badges/powershell-auto.png" alt="PowerShell Automatisation">
                 </div>
                 <div class="cert-content">
                     <span class="cert-tag">Microsoft Learn</span>
-                    <h3 class="cert-title">Automatiser des tâches d'administration à l’aide de PowerShell</h3>
-                    <p class="cert-issuer">Délivré par : Microsoft Learn <br>Obtention : 11 décembre 2025</p>
-                    <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat</a>    
+                    <h3 class="cert-title">Automatiser des tâches d'administration à l'aide de PowerShell</h3>
+                    <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 11 Décembre 2025</p>
+                    <div class="cert-actions">
+                        <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
+                        <button class="modules-btn" onclick="openModules('ps-auto')">⊞ Voir les modules</button>
+                    </div>
                 </div>
             </article>
 
+            <!-- ── Concepts Info ── -->
             <article class="cert-card Microsoft">
                 <div class="cert-img">
-                    <img src="Badges/concepts-info.png" alt="Illustration AD">
+                    <img src="Badges/concepts-info.png" alt="Concepts Informatiques">
                 </div>
                 <div class="cert-content">
                     <span class="cert-tag">Microsoft Learn</span>
                     <h3 class="cert-title">Exploration des concepts informatiques de base</h3>
-                    <p class="cert-issuer">Délivré par : Microsoft Learn <br>Obtention : 7 janvier 2026</p>
-                    <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat</a>    
+                    <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 7 Janvier 2026</p>
+                    <div class="cert-actions">
+                        <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
+                        <button class="modules-btn" onclick="openModules('concepts')">⊞ Voir les modules</button>
+                    </div>
                 </div>
             </article>
 
+            <!-- ── MD-100 Auth ── -->
             <article class="cert-card Microsoft">
                 <div class="cert-img">
-                    <img src="Badges/authentication.png" alt="Illustration AD">
+                    <img src="Badges/authentication.png" alt="Authentification">
                 </div>
                 <div class="cert-content">
                     <span class="cert-tag">Microsoft Learn</span>
-                    <h3 class="cert-title">MD-100 Configurer l’autorisation et l’authentification</h3>
-                    <p class="cert-issuer">Délivré par : Microsoft Learn <br>Obtention : 7 janvier 2026</p>
-                    <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat</a>    
+                    <h3 class="cert-title">MD-100 Configurer l'autorisation et l'authentification</h3>
+                    <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 7 Janvier 2026</p>
+                    <div class="cert-actions">
+                        <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
+                        <button class="modules-btn" onclick="openModules('auth')">⊞ Voir les modules</button>
+                    </div>
                 </div>
             </article>
 
         </section>
     </main>
 
+    <footer>
+        <p>Pascal Griffon · Vitrine de certifications professionnelles</p>
+    </footer>
+
+    <!-- ── Modal ── -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeOnBackdrop(event)">
+        <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <div class="modal-header-left">
+                    <span class="modal-eyebrow" id="modalEyebrow">Microsoft Learn</span>
+                    <h2 class="modal-title" id="modalTitle">Titre de la certification</h2>
+                </div>
+                <button class="modal-close" onclick="closeModal()" aria-label="Fermer">✕</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-intro" id="modalIntro"></p>
+                <div class="modules-grid" id="modulesGrid"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        /* ──────────────────────────────────────────────
+           DATA — modules par certification
+           Remplace les liens "#" par les vrais URLs
+        ────────────────────────────────────────────── */
+        const DATA = {
+            'ps-base': {
+                title: 'Bien démarrer avec Windows PowerShell',
+                intro: 'Parcours d\'apprentissage couvrant les fondamentaux de PowerShell pour l\'administration Windows.',
+                modules: [
+                    { icon: '🖥️', name: 'Présentation de Windows PowerShell', duration: '24 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/introduction-to-windows-powershell/' },
+                    { icon: '⌨️', name: 'Découvrir les commandes PowerShell', duration: '28 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/discover-commands/' },
+                    { icon: '🔍', name: 'Mettre en forme, filtrer et comparer des données', duration: '32 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/format-filter-compare-data/' },
+                    { icon: '📂', name: 'Énumérer des objets en utilisant le pipeline', duration: '30 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/enumerate-objects-pipeline/' },
+                    { icon: '🔧', name: 'Envoyer et transmettre des objets dans le pipeline', duration: '25 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/send-pass-data-pipeline/' },
+                ]
+            },
+            'ps-auto': {
+                title: 'Automatiser des tâches d\'administration à l\'aide de PowerShell',
+                intro: 'Parcours avancé pour automatiser les tâches répétitives d\'administration système avec PowerShell.',
+                modules: [
+                    { icon: '📜', name: 'Créer et exécuter des scripts PowerShell', duration: '35 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/create-run-scripts/' },
+                    { icon: '🔄', name: 'Utiliser des variables, tableaux et tables de hachage', duration: '40 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/use-variables-arrays-hash-tables/' },
+                    { icon: '⚙️', name: 'Écrire des scripts avec des branches et des boucles', duration: '38 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/write-scripts-branches-loops/' },
+                    { icon: '🧩', name: 'Gestion des erreurs dans les scripts', duration: '30 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/error-handling-scripts/' },
+                    { icon: '🛠️', name: 'Utiliser des fonctions et des modules', duration: '42 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/use-functions-modules/' },
+                ]
+            },
+            'concepts': {
+                title: 'Exploration des concepts informatiques de base',
+                intro: 'Parcours couvrant les fondements de l\'informatique moderne : matériel, logiciels, réseaux et sécurité.',
+                modules: [
+                    { icon: '💡', name: 'Qu\'est-ce que l\'informatique ?', duration: '20 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/what-is-computing/' },
+                    { icon: '🖨️', name: 'Comprendre le matériel informatique', duration: '25 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/understand-computer-hardware/' },
+                    { icon: '💾', name: 'Stockage et systèmes de fichiers', duration: '22 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/storage-file-systems/' },
+                    { icon: '🌐', name: 'Concepts réseau fondamentaux', duration: '30 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/fundamental-network-concepts/' },
+                    { icon: '🔒', name: 'Introduction à la sécurité informatique', duration: '28 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/introduction-computer-security/' },
+                ]
+            },
+            'auth': {
+                title: 'MD-100 Configurer l\'autorisation et l\'authentification',
+                intro: 'Module MD-100 portant sur la configuration des mécanismes d\'authentification et de contrôle d\'accès Windows.',
+                modules: [
+                    { icon: '🔐', name: 'Configurer l\'authentification utilisateur', duration: '35 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/configure-user-authentication/' },
+                    { icon: '👥', name: 'Gérer les comptes et groupes locaux', duration: '30 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/manage-local-accounts-groups/' },
+                    { icon: '🛡️', name: 'Configurer le contrôle de compte d\'utilisateur (UAC)', duration: '25 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/configure-uac/' },
+                    { icon: '🗝️', name: 'Gérer les stratégies et les droits d\'accès', duration: '32 min', link: 'https://learn.microsoft.com/fr-fr/training/modules/manage-access-policies/' },
+                ]
+            }
+        };
+
+        /* ── Modal logic ── */
+        function openModules(id) {
+            const data = DATA[id];
+            if (!data) return;
+
+            document.getElementById('modalTitle').textContent = data.title;
+            document.getElementById('modalIntro').textContent = data.intro;
+
+            const grid = document.getElementById('modulesGrid');
+            grid.innerHTML = '';
+
+            data.modules.forEach((m, i) => {
+                const card = document.createElement('div');
+                card.className = 'module-card';
+                card.style.animationDelay = `${i * 60}ms`;
+                card.innerHTML = `
+                    <span class="module-number">Module ${String(i + 1).padStart(2, '0')}</span>
+                    <span class="module-icon">${m.icon}</span>
+                    <span class="module-name">${m.name}</span>
+                    <span class="module-duration">⏱ ${m.duration}</span>
+                    <a href="${m.link}" class="module-link" target="_blank" rel="noopener noreferrer">Voir le module ↗</a>
+                `;
+                grid.appendChild(card);
+            });
+
+            const overlay = document.getElementById('modalOverlay');
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function closeOnBackdrop(e) {
+            if (e.target === document.getElementById('modalOverlay')) closeModal();
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        /* ── Filter logic ── */
         function filterCerts(category, btnElement) {
-            // Mise à jour de l'état actif des boutons et de l'accessibilité
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
                 btn.setAttribute('aria-pressed', 'false');
             });
             btnElement.classList.add('active');
             btnElement.setAttribute('aria-pressed', 'true');
 
-            // Filtrage des cartes avec animation
             const cards = document.querySelectorAll('.cert-card');
             cards.forEach(card => {
                 card.classList.remove('fade-in');
-                
                 if (category === 'all' || card.classList.contains(category)) {
                     card.style.display = 'flex';
-                    // Délai pour forcer le navigateur à rejouer l'animation
-                    setTimeout(() => {
-                        card.classList.add('fade-in');
-                    }, 10);
+                    setTimeout(() => card.classList.add('fade-in'), 10);
                 } else {
                     card.style.display = 'none';
                 }
             });
         }
     </script>
-
 </body>
 </html>
