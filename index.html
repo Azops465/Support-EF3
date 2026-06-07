@@ -39,8 +39,8 @@
             overflow-x: hidden;
         }
 
-        /* ── Scrollbar ── */
-        ::-webkit-scrollbar { width: 6px; }
+        /* ── Scrollbar Générale ── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
@@ -58,16 +58,67 @@
             z-index: 0;
         }
 
+        /* ── Main Navigation ── */
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 0.4rem;
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .nav-page-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            padding: 0.6rem 1.4rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
+        }
+
+        .nav-page-btn:hover {
+            color: var(--text);
+            background: var(--border);
+        }
+
+        .nav-page-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 12px var(--primary-glow);
+        }
+
+        /* ── Page Management ── */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
         /* ── Header ── */
-        header {
+        .page-header {
             position: relative;
             text-align: center;
-            padding: 5rem 1rem 4rem;
+            padding: 4rem 1rem 3rem;
             overflow: hidden;
             z-index: 1;
         }
 
-        header::before {
+        .page-header::before {
             content: '';
             position: absolute;
             top: -60px;
@@ -89,7 +140,7 @@
             opacity: 0.9;
         }
 
-        header h1 {
+        .page-header h1 {
             font-size: clamp(2.2rem, 5vw, 3.2rem);
             font-weight: 600;
             letter-spacing: -1px;
@@ -101,11 +152,11 @@
             background-clip: text;
         }
 
-        header p {
+        .page-header p {
             color: var(--text-dim);
             font-weight: 300;
             font-size: 1.05rem;
-            max-width: 420px;
+            max-width: 550px;
             margin: 0 auto;
         }
 
@@ -146,9 +197,9 @@
         .container {
             position: relative;
             z-index: 1;
-            max-width: 1200px;
+            max-width: 95%;
             margin: 0 auto;
-            padding: 3rem 2rem 5rem;
+            padding: 1rem 1rem 5rem;
         }
 
         /* ── Filter Tabs ── */
@@ -167,7 +218,7 @@
             margin-right: auto;
         }
 
-        .filter-btn {
+        .filter-btn, .filter-offer-btn {
             background: transparent;
             color: var(--text-muted);
             border: none;
@@ -181,24 +232,34 @@
             letter-spacing: 0.2px;
         }
 
-        .filter-btn:hover {
+        .filter-btn:hover, .filter-offer-btn:hover {
             color: var(--text);
             background: var(--border);
         }
 
-        .filter-btn.active {
+        .filter-btn.active, .filter-offer-btn.active {
             background: var(--primary);
             color: white;
             box-shadow: 0 2px 12px var(--primary-glow);
         }
 
-        /* ── Showcase Grid ── */
+        /* ── Showcase (Configuré pour le défilement horizontal intelligent) ── */
         .showcase {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            overflow-x: auto;
             gap: 1.5rem;
+            width: 100%;
+            padding-bottom: 1.5rem; /* Espace pour éviter que la scrollbar ne cache l'ombre des cartes */
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            justify-content: safe center;
         }
+
+        /* Style de barre de défilement dédié pour les sliders de vignettes */
+        .showcase::-webkit-scrollbar { height: 6px; }
+        .showcase::-webkit-scrollbar-track { background: var(--surface); border-radius: 10px; }
+        .showcase::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 10px; }
+        .showcase::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
         /* ── Cert Card ── */
         .cert-card {
@@ -210,8 +271,10 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            width: 100%;
-            max-width: 320px;
+            
+            /* Paramètres obligatoires pour le défilement horizontal */
+            flex: 0 0 310px; /* Conserve une largeur idéale fixe sans écrasement */
+            scroll-snap-align: start; /* Aligne la carte au début lors du scroll */
         }
 
         .cert-card:hover {
@@ -221,7 +284,6 @@
             border-color: var(--primary);
         }
 
-        /* Corner accent */
         .cert-card::after {
             content: '';
             position: absolute;
@@ -260,6 +322,16 @@
             object-fit: contain;
             transition: transform 0.5s ease;
             filter: drop-shadow(0 4px 12px rgba(99,102,241,0.2));
+        }
+
+        .cert-img-icon {
+            font-size: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 4px 12px rgba(34, 211, 238, 0.3));
         }
 
         .cert-card:hover .cert-img img {
@@ -308,7 +380,6 @@
             color: var(--text-dim);
         }
 
-        /* ── Button group ── */
         .cert-actions {
             display: flex;
             flex-direction: column;
@@ -340,7 +411,6 @@
 
         .cert-link:active { transform: scale(0.98); }
 
-        /* Modules button */
         .modules-btn {
             display: block;
             text-align: center;
@@ -357,10 +427,7 @@
             letter-spacing: 0.2px;
         }
 
-        .modules-btn:hover {
-            background: rgba(34,211,238,0.18);
-        }
-
+        .modules-btn:hover { background: rgba(34,211,238,0.18); }
         .modules-btn:active { transform: scale(0.98); }
 
         /* ── Modal Overlay ── */
@@ -379,10 +446,7 @@
             transition: opacity 0.3s ease;
         }
 
-        .modal-overlay.open {
-            opacity: 1;
-            pointer-events: all;
-        }
+        .modal-overlay.open { opacity: 1; pointer-events: all; }
 
         .modal {
             background: var(--surface);
@@ -398,9 +462,7 @@
             box-shadow: 0 40px 80px rgba(0,0,0,0.7);
         }
 
-        .modal-overlay.open .modal {
-            transform: scale(1) translateY(0);
-        }
+        .modal-overlay.open .modal { transform: scale(1) translateY(0); }
 
         .modal-header {
             padding: 2rem 2rem 1.5rem;
@@ -416,26 +478,9 @@
             border-radius: 24px 24px 0 0;
         }
 
-        .modal-header-left {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .modal-eyebrow {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.68rem;
-            color: var(--accent);
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-        }
-
-        .modal-title {
-            font-size: 1.35rem;
-            font-weight: 600;
-            color: white;
-            line-height: 1.3;
-        }
+        .modal-header-left { display: flex; flex-direction: column; gap: 0.4rem; }
+        .modal-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--accent); letter-spacing: 2.5px; text-transform: uppercase; }
+        .modal-title { font-size: 1.35rem; font-weight: 600; color: white; line-height: 1.3; }
 
         .modal-close {
             background: var(--card-bg);
@@ -451,32 +496,14 @@
             justify-content: center;
             flex-shrink: 0;
             transition: all 0.2s ease;
-            line-height: 1;
         }
 
-        .modal-close:hover {
-            background: rgba(239, 68, 68, 0.15);
-            border-color: rgba(239, 68, 68, 0.4);
-            color: #f87171;
-        }
-
-        .modal-body {
-            padding: 2rem;
-        }
-
-        .modal-intro {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
+        .modal-close:hover { background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: #f87171; }
+        .modal-body { padding: 2rem; }
+        .modal-intro { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 2rem; font-style: italic; }
 
         /* ── Module Cards ── */
-        .modules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 1rem;
-        }
+        .modules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
 
         .module-card {
             background: var(--card-bg);
@@ -488,58 +515,22 @@
             gap: 0.8rem;
             transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
             animation: moduleIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
-            align-items: center; /* NOUVEAU: Centrer horizontalement */
-            text-align: center;   /* NOUVEAU: Centrer le texte */
+            align-items: center;
+            text-align: center;
         }
 
-        .module-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-        }
+        .module-card:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
 
         @keyframes moduleIn {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .module-icon {
-            font-size: 2.5rem; /* NOUVEAU: Plus gros */
-            margin: 0.5rem 0; /* Add some space */
-            display: flex;     /* NOUVEAU: Pour le centrage d'image */
-            justify-content: center;
-            align-items: center;
-        }
-
-        .module-icon img {
-            width: 70px;  /* NOUVEAU: Plus gros */
-            height: 70px; /* NOUVEAU: Plus gros */
-            object-fit: contain;
-        }
-
-        .module-number {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .module-name {
-            font-size: 0.92rem;
-            font-weight: 600;
-            color: var(--text);
-            line-height: 1.4;
-            flex-grow: 1;
-        }
-
-        .module-duration {
-            font-size: 0.76rem;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
+        .module-icon { font-size: 2.5rem; margin: 0.5rem 0; display: flex; justify-content: center; align-items: center; }
+        .module-icon img { width: 70px; height: 70px; object-fit: contain; }
+        .module-number { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+        .module-name { font-size: 0.92rem; font-weight: 600; color: var(--text); line-height: 1.4; flex-grow: 1; }
+        .module-duration { font-size: 0.76rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.3rem; }
 
         .module-link {
             display: block;
@@ -555,33 +546,18 @@
             border: 1px solid rgba(99,102,241,0.2);
         }
 
-        .module-link:hover {
-            background: var(--primary);
-            color: white;
-        }
+        .module-link:hover { background: var(--primary); color: white; }
 
         /* ── Animations ── */
-        .fade-in {
-            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-
+        .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.95) translateY(12px); }
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         /* ── Footer ── */
-        footer {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--border);
-        }
+        footer { position: relative; z-index: 1; text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border); margin-top: 4rem; }
 
-        /* ── Responsive ── */
         @media (max-width: 600px) {
             .stats-bar { gap: 2rem; }
             .modal-body { padding: 1.2rem; }
@@ -592,112 +568,231 @@
 </head>
 <body>
 
-    <header>
-        <p class="header-eyebrow">// Parcours certifié</p>
-        <h1>Mes Certifications</h1>
-        <p>Compétences validées en cybersécurité, administration système et infrastructure Microsoft.</p>
+    <nav class="main-nav" aria-label="Navigation principale">
+        <button class="nav-page-btn active" onclick="switchPage('home', this)">Accueil</button>
+        <button class="nav-page-btn" onclick="switchPage('offers', this)">Offre de Certifications</button>
+        <button class="nav-page-btn" onclick="switchPage('my-certs', this)">Mes Certifications</button>
+    </nav>
 
-        <div class="stats-bar">
-            <div class="stat">
-                <span class="stat-number" id="stat-total">1</span>
-                <span class="stat-label">Certifications</span>
+    <section id="page-home" class="page-section active">
+        <header class="page-header">
+            <h1>Parcours de Certifications</h1>
+            <p>Démarche de spécialisation dans le domaine des technologies informatiques et numériques.</p>
+        </header>
+
+        <main class="container" style="max-width: 750px;">
+            <article class="cert-card" style="padding: 2rem; background: var(--card-bg); text-align: center; flex: none; width: 100%;">
+                <div style="font-size: 1.1rem; line-height: 1.8; color: var(--text-dim); display: flex; flex-direction: column; gap: 1rem;">
+                    <p>Bonjour, je m'appelle <strong>Pascal Griffon</strong>.</p>
+                    <p>Cette vitrine numérique présente ma démarche de certification professionnelle, structurée entre mes compétences actuellement validées et la cartographie des certifications cibles identifiées pour mon avenir professionnel.</p>
+                </div>
+            </article>
+        </main>
+    </section>
+
+    <section id="page-offers" class="page-section">
+        <header class="page-header">
+            <p class="header-eyebrow">// Cartographie</p>
+            <h1>Offre de Certifications</h1>
+            <p>Inventaire des certifications cibles identifiées pour structurer mon projet professionnel.</p>
+        </header>
+
+        <main class="container">
+            <nav class="filters" aria-label="Filtres de l'offre">
+                <button class="filter-offer-btn active" onclick="filterOffers('all', this)">Tout afficher</button>
+                <button class="filter-offer-btn" onclick="filterOffers('generaliste', this)">Généralistes</button>
+                <button class="filter-offer-btn" onclick="filterOffers('sisr', this)">Option SISR</button>
+            </nav>
+
+            <section class="showcase" id="showcase-offers">
+                
+                <article class="cert-card generaliste">
+                    <div class="cert-img">
+                        <img src="Badges/toeic.png" alt="TOEIC" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>🗣️</div>'">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-tag">Généraliste</span>
+                        <h3 class="cert-title">TOEIC</h3>
+                        <p class="cert-issuer">Certification de référence pour l'évaluation des compétences de compréhension écrite et orale en langue anglaise.</p>
+                    </div>
+                </article>
+
+                <article class="cert-card generaliste">
+                    <div class="cert-img">
+                        <img src="Badges/anssi.png" alt="ANSSI" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>🛡️</div>'">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-tag">Généraliste</span>
+                        <h3 class="cert-title">ANSSI</h3>
+                        <p class="cert-issuer">Mooc SecNumAcadémie validant la connaissance des fondamentaux de la sécurité des systèmes d'information.</p>
+                    </div>
+                </article>
+
+                <article class="cert-card generaliste">
+                    <div class="cert-img">
+                        <img src="Badges/voltaire.png" alt="Voltaire" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>✍️</div>'">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-tag">Généraliste</span>
+                        <h3 class="cert-title">Voltaire</h3>
+                        <p class="cert-issuer">Certification de niveau d'orthographe et d'expression, valorisant l'excellence rédactionnelle en entreprise.</p>
+                    </div>
+                </article>
+
+                <article class="cert-card sisr">
+                    <div class="cert-img">
+                        <img src="Badges/cisco.png" alt="CISCO" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>🌐</div>'">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-tag">Option SISR</span>
+                        <h3 class="cert-title">CISCO</h3>
+                        <p class="cert-issuer">Cursus d'administration des architectures réseaux, routage et commutation (NetAcad / CCNA).</p>
+                    </div>
+                </article>
+
+                <article class="cert-card sisr">
+                    <div class="cert-img">
+                        <img src="Badges/tryhackme.png" alt="TryHackMe" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>🐱</div>'">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-tag">Option SISR</span>
+                        <h3 class="cert-title">TryHackMe</h3>
+                        <p class="cert-issuer">Plateforme de formation cyber interactive permettant de valider des compétences défensives et applicatives.</p>
+                    </div>
+                </article>
+
+                <article class="cert-card sisr">
+                    <div class="cert-img">
+                        <img src="Badges/rootme.png" alt="RootMe" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>☠️</div>'">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-tag">Option SISR</span>
+                        <h3 class="cert-title">RootMe</h3>
+                        <p class="cert-issuer">Validation de compétences pratiques en investigation réseau, exploitation système et vulnérabilités web.</p>
+                    </div>
+                </article>
+
+                <article class="cert-card sisr">
+                    <div class="cert-img">
+                        <img src="Badges/aws.png" alt="AWS" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>☁️</div>'">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-tag">Option SISR</span>
+                        <h3 class="cert-title">AWS</h3>
+                        <p class="cert-issuer">Validation d'expertise Cloud d'Amazon sur l'architecture, le déploiement et la sécurisation d'infrastructures.</p>
+                    </div>
+                </article>
+
+            </section>
+        </main>
+    </section>
+
+    <section id="page-my-certs" class="page-section">
+        <header class="page-header">
+            <p class="header-eyebrow">// Parcours certifié</p>
+            <h1>Mes Certifications</h1>
+            <p>Compétences validées en cybersécurité, administration système et infrastructure Microsoft.</p>
+
+            <div class="stats-bar">
+                <div class="stat">
+                    <span class="stat-number" id="stat-total">1</span>
+                    <span class="stat-label">Certifications</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Parcours d'apprentissage</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">18</span>
+                    <span class="stat-label">Modules</span>
+                </div>
             </div>
-            <div class="stat">
-                <span class="stat-number">4</span>
-                <span class="stat-label">Parcours d'apprentissage</span>
-            </div>
-            <div class="stat">
-                <span class="stat-number">18</span>
-                <span class="stat-label">Modules</span>
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="container">
-        <nav class="filters" aria-label="Filtres de certifications">
-            <button class="filter-btn active" onclick="filterCerts('all', this)" aria-pressed="true">Tout afficher</button>
-            <button class="filter-btn" onclick="filterCerts('SecNum', this)" aria-pressed="false">SecNumAcadémie</button>
-            <button class="filter-btn" onclick="filterCerts('Microsoft', this)" aria-pressed="false">Microsoft Learn</button>
-        </nav>
+        <main class="container">
+            <nav class="filters" aria-label="Filtres de certifications">
+                <button class="filter-btn active" onclick="filterCerts('all', this)" aria-pressed="true">Tout afficher</button>
+                <button class="filter-btn" onclick="filterCerts('SecNum', this)" aria-pressed="false">SecNumAcadémie</button>
+                <button class="filter-btn" onclick="filterCerts('Microsoft', this)" aria-pressed="false">Microsoft Learn</button>
+            </nav>
 
-        <section class="showcase" id="showcase">
-
-            <article class="cert-card SecNum">
-                <div class="cert-img">
-                    <img src="Badges/secnum.png" alt="SecNumAcadémie">
-                </div>
-                <div class="cert-content">
-                    <span class="cert-tag">SecNumAcadémie</span>
-                    <h3 class="cert-title">Bases et bonnes pratiques de la SSI</h3>
-                    <p class="cert-issuer"><strong>Délivré par :</strong> L'équipe SecNumacadémie<br><strong>Obtenu le :</strong> 7 Novembre 2024</p>
-                    <div class="cert-actions">
-                        <a href="Certifs/Attestation SecNum Pascal Griffon.pdf" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
+            <section class="showcase" id="showcase">
+                <article class="cert-card SecNum">
+                    <div class="cert-img">
+                        <img src="Badges/secnum.png" alt="SecNumAcadémie">
                     </div>
-                </div>
-            </article>
-
-            <article class="cert-card Microsoft">
-                <div class="cert-img">
-                    <img src="Badges/powershell-base.png" alt="PowerShell Base">
-                </div>
-                <div class="cert-content">
-                    <span class="cert-tag">Microsoft Learn</span>
-                    <h3 class="cert-title">Bien démarrer avec Windows PowerShell</h3>
-                    <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 05 Décembre 2025</p>
-                    <div class="cert-actions">
-                        <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/UA7B9LF3?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
-                        <button class="modules-btn" onclick="openModules('ps-base')">⊞ Voir les modules</button>
+                    <div class="cert-content">
+                        <span class="cert-tag">SecNumAcadémie</span>
+                        <h3 class="cert-title">Bases et bonnes pratiques de la SSI</h3>
+                        <p class="cert-issuer"><strong>Délivré par :</strong> L'équipe SecNumacadémie<br><strong>Obtenu le :</strong> 7 Novembre 2024</p>
+                        <div class="cert-actions">
+                            <a href="Certifs/Attestation SecNum Pascal Griffon.pdf" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
+                        </div>
                     </div>
-                </div>
-            </article>
+                </article>
 
-            <article class="cert-card Microsoft">
-                <div class="cert-img">
-                    <img src="Badges/powershell-auto.png" alt="PowerShell Automatisation">
-                </div>
-                <div class="cert-content">
-                    <span class="cert-tag">Microsoft Learn</span>
-                    <h3 class="cert-title">Automatiser des tâches d'administration à l'aide de PowerShell</h3>
-                    <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 11 Décembre 2025</p>
-                    <div class="cert-actions">
-                        <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
-                        <button class="modules-btn" onclick="openModules('ps-auto')">⊞ Voir les modules</button>
+                <article class="cert-card Microsoft">
+                    <div class="cert-img">
+                        <img src="Badges/powershell-base.png" alt="PowerShell Base">
                     </div>
-                </div>
-            </article>
-
-            <article class="cert-card Microsoft">
-                <div class="cert-img">
-                    <img src="Badges/concepts-info.png" alt="Concepts Informatiques">
-                </div>
-                <div class="cert-content">
-                    <span class="cert-tag">Microsoft Learn</span>
-                    <h3 class="cert-title">Exploration des concepts informatiques de base</h3>
-                    <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 7 Janvier 2026</p>
-                    <div class="cert-actions">
-                        <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/ZDLRXT42?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
-                        <button class="modules-btn" onclick="openModules('concepts')">⊞ Voir les modules</button>
+                    <div class="cert-content">
+                        <span class="cert-tag">Microsoft Learn</span>
+                        <h3 class="cert-title">Bien démarrer avec Windows PowerShell</h3>
+                        <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 05 Décembre 2025</p>
+                        <div class="cert-actions">
+                            <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/UA7B9LF3?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
+                            <button class="modules-btn" onclick="openModules('ps-base')">⊞ Voir les modules</button>
+                        </div>
                     </div>
-                </div>
-            </article>
+                </article>
 
-            <article class="cert-card Microsoft">
-                <div class="cert-img">
-                    <img src="Badges/authentication.png" alt="Authentification">
-                </div>
-                <div class="cert-content">
-                    <span class="cert-tag">Microsoft Learn</span>
-                    <h3 class="cert-title">MD-100 Configurer l'autorisation et l'authentification</h3>
-                    <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 7 Janvier 2026</p>
-                    <div class="cert-actions">
-                        <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/NMKHGRHF?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
-                        <button class="modules-btn" onclick="openModules('auth')">⊞ Voir les modules</button>
+                <article class="cert-card Microsoft">
+                    <div class="cert-img">
+                        <img src="Badges/powershell-auto.png" alt="PowerShell Automatisation">
                     </div>
-                </div>
-            </article>
+                    <div class="cert-content">
+                        <span class="cert-tag">Microsoft Learn</span>
+                        <h3 class="cert-title">Automatiser des tâches d'administration à l'aide de PowerShell</h3>
+                        <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 11 Décembre 2025</p>
+                        <div class="cert-actions">
+                            <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/469WMDEK?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
+                            <button class="modules-btn" onclick="openModules('ps-auto')">⊞ Voir les modules</button>
+                        </div>
+                    </div>
+                </article>
 
-        </section>
-    </main>
+                <article class="cert-card Microsoft">
+                    <div class="cert-img">
+                        <img src="Badges/concepts-info.png" alt="Concepts Informatiques">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-tag">Microsoft Learn</span>
+                        <h3 class="cert-title">Exploration des concepts informatiques de base</h3>
+                        <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 7 Janvier 2026</p>
+                        <div class="cert-actions">
+                            <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/ZDLRXT42?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
+                            <button class="modules-btn" onclick="openModules('concepts')">⊞ Voir les modules</button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="cert-card Microsoft">
+                    <div class="cert-img">
+                        <img src="Badges/authentication.png" alt="Authentification">
+                    </div>
+                    <div class="cert-content">
+                        <span class="cert-tag">Microsoft Learn</span>
+                        <h3 class="cert-title">MD-100 Configurer l'autorisation et l'authentification</h3>
+                        <p class="cert-issuer"><strong>Délivré par :</strong> Microsoft Learn<br><strong>Obtenu le :</strong> 7 Janvier 2026</p>
+                        <div class="cert-actions">
+                            <a href="https://learn.microsoft.com/api/achievements/share/fr-fr/PascalGriffon-1865/NMKHGRHF?sharingId=885238C4FA112BD9" class="cert-link" target="_blank" rel="noopener noreferrer">Voir le certificat ↗</a>
+                            <button class="modules-btn" onclick="openModules('auth')">⊞ Voir les modules</button>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </section>
 
     <footer>
         <p>Pascal Griffon · Vitrine de certifications professionnelles</p>
@@ -720,10 +815,7 @@
     </div>
 
     <script>
-        /* ──────────────────────────────────────────────
-           DATA — modules par certification
-           Remplace les liens "#" par les vrais URLs
-        ────────────────────────────────────────────── */
+        /* ── DATA Modules ── */
         const DATA = {
             'ps-base': {
                 title: 'Bien démarrer avec Windows PowerShell',
@@ -766,6 +858,21 @@
                 ]
             }
         };
+
+        /* ── Navigation Logic ── */
+        function switchPage(pageId, btnElement) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById('page-' + pageId).classList.add('active');
+
+            document.querySelectorAll('.nav-page-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            btnElement.classList.add('active');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         /* ── Modal logic ── */
         function openModules(id) {
@@ -810,7 +917,7 @@
             if (e.key === 'Escape') closeModal();
         });
 
-        /* ── Filter logic ── */
+        /* ── Filter logic : Page Mes Certifications ── */
         function filterCerts(category, btnElement) {
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -819,7 +926,26 @@
             btnElement.classList.add('active');
             btnElement.setAttribute('aria-pressed', 'true');
 
-            const cards = document.querySelectorAll('.cert-card');
+            const cards = document.querySelectorAll('#showcase .cert-card');
+            cards.forEach(card => {
+                card.classList.remove('fade-in');
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                    setTimeout(() => card.classList.add('fade-in'), 10);
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        /* ── Filter logic : Page Offre de Certifications ── */
+        function filterOffers(category, btnElement) {
+            document.querySelectorAll('.filter-offer-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            btnElement.classList.add('active');
+
+            const cards = document.querySelectorAll('#showcase-offers .cert-card');
             cards.forEach(card => {
                 card.classList.remove('fade-in');
                 if (category === 'all' || card.classList.contains(category)) {
