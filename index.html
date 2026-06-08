@@ -577,13 +577,13 @@
     <section id="page-home" class="page-section active">
         <header class="page-header">
             <h1>Parcours de Certifications</h1>
-            <p>Démarche de spécialisation dans le domaine des technologies informatiques et numériques.</p>
         </header>
 
         <main class="container" style="max-width: 750px;">
             <article class="cert-card" style="padding: 2rem; background: var(--card-bg); text-align: center; flex: none; width: 100%;">
                 <div style="font-size: 1.1rem; line-height: 1.8; color: var(--text-dim); display: flex; flex-direction: column; gap: 1rem;">
                     <p>Bonjour, je m'appelle <strong>Pascal Griffon</strong>.</p>
+                    <p>Actuellement en <strong>BTS SIO</strong> à <strong>CaenSup St Ursule</strong>, en alternance à la <strong>Préfecture de la Manche</strong>.</p>
                     <p>Cette vitrine numérique présente ma démarche de certification professionnelle, structurée entre mes compétences actuellement validées et la cartographie des certifications cibles identifiées pour mon avenir professionnel.</p>
                 </div>
             </article>
@@ -598,11 +598,6 @@
         </header>
 
         <main class="container">
-            <nav class="filters" aria-label="Filtres de l'offre">
-                <button class="filter-offer-btn active" onclick="filterOffers('all', this)">Tout afficher</button>
-                <button class="filter-offer-btn" onclick="filterOffers('generaliste', this)">Généralistes</button>
-                <button class="filter-offer-btn" onclick="filterOffers('sisr', this)">Option SISR</button>
-            </nav>
 
             <section class="showcase" id="showcase-offers">
                 
@@ -611,7 +606,6 @@
                         <img src="Badges/toeic.png" alt="TOEIC" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>🗣️</div>'">
                     </div>
                     <div class="cert-content">
-                        <span class="cert-tag">Généraliste</span>
                         <h3 class="cert-title">TOEIC</h3>
                         <p class="cert-issuer">Certification de référence pour l'évaluation des compétences de compréhension écrite et orale en langue anglaise.</p>
                     </div>
@@ -622,7 +616,6 @@
                         <img src="Badges/secnum.png" alt="ANSSI" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>🛡️</div>'">
                     </div>
                     <div class="cert-content">
-                        <span class="cert-tag">Généraliste</span>
                         <h3 class="cert-title">ANSSI</h3>
                         <p class="cert-issuer">Mooc SecNumAcadémie validant la connaissance des fondamentaux de la sécurité des systèmes d'information.</p>
                     </div>
@@ -633,7 +626,6 @@
                         <img src="Badges/voltaire.png" alt="Voltaire" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>✍️</div>'">
                     </div>
                     <div class="cert-content">
-                        <span class="cert-tag">Généraliste</span>
                         <h3 class="cert-title">Voltaire</h3>
                         <p class="cert-issuer">Certification de niveau d'orthographe et d'expression, valorisant l'excellence rédactionnelle en entreprise.</p>
                     </div>
@@ -644,7 +636,6 @@
                         <img src="Badges/cisco.png" alt="CISCO" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>🌐</div>'">
                     </div>
                     <div class="cert-content">
-                        <span class="cert-tag">Option SISR</span>
                         <h3 class="cert-title">CISCO</h3>
                         <p class="cert-issuer">Cursus d'administration des architectures réseaux, routage et commutation (NetAcad / CCNA).</p>
                     </div>
@@ -655,7 +646,6 @@
                         <img src="Badges/tryhackme.png" alt="TryHackMe" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>🐱</div>'">
                     </div>
                     <div class="cert-content">
-                        <span class="cert-tag">Option SISR</span>
                         <h3 class="cert-title">TryHackMe</h3>
                         <p class="cert-issuer">Plateforme de formation cyber interactive permettant de valider des compétences défensives et applicatives.</p>
                     </div>
@@ -666,7 +656,6 @@
                         <img src="Badges/rootme.png" alt="RootMe" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>☠️</div>'">
                     </div>
                     <div class="cert-content">
-                        <span class="cert-tag">Option SISR</span>
                         <h3 class="cert-title">RootMe</h3>
                         <p class="cert-issuer">Validation de compétences pratiques en investigation réseau, exploitation système et vulnérabilités web.</p>
                     </div>
@@ -677,9 +666,18 @@
                         <img src="Badges/aws.png" alt="AWS" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>☁️</div>'">
                     </div>
                     <div class="cert-content">
-                        <span class="cert-tag">Option SISR</span>
                         <h3 class="cert-title">AWS</h3>
                         <p class="cert-issuer">Validation d'expertise Cloud d'Amazon sur l'architecture, le déploiement et la sécurisation d'infrastructures.</p>
+                    </div>
+                </article>
+
+                <article class="cert-card microsoft-learn">
+                    <div class="cert-img">
+                        <img src="Badges/microsoftlearn.png" alt="Microsoft Learn" onerror="this.style.display='none';this.parentElement.innerHTML+='<div class=\'cert-img-icon\'>⊞</div>'">
+                    </div>
+                    <div class="cert-content">
+                        <h3 class="cert-title">Microsoft Learn</h3>
+                        <p class="cert-issuer">Parcours de certifications officiels Microsoft couvrant PowerShell, l'administration Windows, Azure et les fondamentaux informatiques.</p>
                     </div>
                 </article>
 
@@ -696,7 +694,7 @@
             <div class="stats-bar">
                 <div class="stat">
                     <span class="stat-number" id="stat-total">1</span>
-                    <span class="stat-label">Certifications</span>
+                    <span class="stat-label">Attestation</span>
                 </div>
                 <div class="stat">
                     <span class="stat-number">4</span>
